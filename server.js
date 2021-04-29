@@ -1,30 +1,29 @@
-const express = require('express');
-const bodyParser = require('body-parser')
+const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require("mongodb").MongoClient;
 
-MongoClient.connect("mongodb://localhost:27017/crem", (err, client) => {
-  if(err) {
-    throw err
-  }
-  console.log(client)
-  console.log(error)
-});
+MongoClient.connect("mongodb://localhost:27017/crem", {
+  useUnifiedTopology: true,
+}).then((client) => {
+  console.log("Connected to Database");
+  const db = client.db("quotes");
+  app.use(express.urlencoded({ extended: true }));
 
-app.use(express.urlencoded({ extended: true }))
-
-app.listen(3000, function() {
-    console.log('listening on 3000')
-})
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+  app.listen(3000, function () {
+    console.log("listening on 3000");
   })
-  
-app.post('/quotes', (req, res) => {
-  console.log(req.body)
+
+  app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+  })
+
+  app.post("/quotes", (req, res) => {
+    console.log(req.body);
+  })
 })
+.catch(console.error)
 
 //test commit
 
