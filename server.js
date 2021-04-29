@@ -4,7 +4,7 @@ const app = express();
 
 const MongoClient = require('mongodb').MongoClient
 
-MongoClient.connect("mongodb://localhost:3000/db", (err, client) => {
+MongoClient.connect("mongodb://localhost:27017/crem", (err, client) => {
   if(err) {
     throw err
   }
